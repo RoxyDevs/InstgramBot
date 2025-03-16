@@ -1,53 +1,52 @@
-# InstgramBot 
-[![forthebadge](https://forthebadge.com/images/badges/made-with-python.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/powered-by-electricity.svg)](https://forthebadge.com)
+# Instagram Bot
 
-Instagram Bot which increases your followers.The objective of this project is to build a bigger audience and as a plus, maybe drive some traffic to your website.The script isn’t as sophisticated as it could be, and I know there’s lots of room to improve it. 
+Este es un bot de Instagram que aumenta tus seguidores mediante métodos orgánicos. No utiliza técnicas de seguir-dejar de seguir.
 
-if you search for 'how to grow on Instagram' you can see the results like , engage with the peoples in your niche,use hashtags, etc. 
-This Bot will help you to get good Instagram followers and customers by liking and commenting on the post of hashtag specified.
-there are many bots available online but they are not free.
+## Requisitos
 
--BigBangram  :- $24 per month 
--InstaMacro    :- $59.99per month
--Popamatic     :-$39 per month
--Followadder  :-$49-$425 per 6 months
--Ingramer        :-38 euro
-Because of mistakes made by developer a lot of account gets ban for using Instagram Bots.
-Uploading your Instagram user id and password is also not the safe thing to do.
-That's why I developed an Instagram Bot to do the Work for You.
+- Python 3.x
+- Selenium
+- Chromedriver
 
+## Instalación
 
-The Bot is Developed Using Python 3 
- ## Requirment
-  Python3,Selenium, a browser (in my case I’ll be using Chrome) and obviously, an Instagram account!
+1. Clona el repositorio:
+    ```bash
+    git clone https://github.com/RoxyDevs/InstgramBot.git
+    ```
 
+2. Navega al directorio del proyecto:
+    ```bash
+    cd InstgramBot
+    ```
 
-## Working:-
-**you have to customize paths in the code according to your browser**
-- Open a browser and login with your credentials
-- For every hashtag in the hashtag list, it will open the page and click the first picture to open it
-- It will then like, comment and move to the next picture, in a 100 iterations loop (number can be adjusted)
+3. Instala las dependencias:
+    ```bash
+    pip install -r requirements.txt
+    ```
 
+## Uso
 
-> Full Version Develped by [Vinay Patil](https://github.com/engineervinay/)  , if you want other O.S versions then do Check out version made by harsh https://github.com/theuitown/InstgramBot or you can check another branch(linuxcode) in this project made by him 
-Thanks to [harsh](https://github.com/theuitown/)
+### Configuración
 
+Asegúrate de configurar tus credenciales en `config/credentials.yaml` y cualquier otra configuración en `config/config.yaml`.
 
-## video:
-**Click on image!!**
-**[![Watch the video](https://img.youtube.com/vi/Gtufx3DYO68/maxresdefault.jpg)](https://youtu.be/Gtufx3DYO68)**
+### Ejecución del Bot
 
-## License & Copyright
-© [Vinay Patil](https://engineervinay.github.io/)
+Para ejecutar el bot principal:
+```bash
+python scripts/insta_bot.py
+```
 
-Licensed under the [MIT License](License)
+Para ejecutar el bot con sesiones distribuidas:
+```bash
+python scripts/insta_bot_sessions.py
+```
 
-## Support Me
-If you liked this, leave a star! :star:
+## Contribución
 
-If you liked this and also liked my other work, be sure to follow me for more! :slightly_smiling_face:
+Si deseas contribuir a este proyecto, por favor abre un issue o crea un pull request.
 
-## Contributors
-<a href="https://github.com/Engineervinay/InstgramBot/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=Engineervinay/InstgramBot" />
-</a>
+## Licencia
+
+Este proyecto está bajo la Licencia MIT.

@@ -1,0 +1,4 @@
+instagram:
+  base_url: "https://www.instagram.com"
+  login_url: "/accounts/login/"
+  explore_url: "/explore/tags/"

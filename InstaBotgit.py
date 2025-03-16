@@ -1,137 +1,107 @@
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.service import Service
+from time import sleep
+from random import randint
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 
-#the code is hosted on github.com/engineervinay if you wanted to make development in code visit profile and fork the code
-#if you have any query related to this code you can contact me on github @engineervinay
+# Configuración de opciones para Chrome
+chrome_options = Options()
+chrome_options.add_argument("--disable-notifications")
+chrome_options.add_argument("--disable-infobars")
+chrome_options.add_argument("--mute-audio")
 
+# Ruta del chromedriver
+chromedriver_path = 'C:/Users/Vinay/Downloads/chromedriver_win32/chromedriver.exe'
+service = Service(executable_path=chromedriver_path)
+driver = webdriver.Chrome(service=service, options=chrome_options)
 
+# Ventana para aceptar entradas: usuario, contraseña y hashtags
+user = input("Enter username: ")
+passw = input("Enter password: ")
+hash = input("Enter hashtags separated by comma: ")
 
-from selenium.webdriver.common.keys import Keys #importing keys from selenium to enter the comments
+# Abriendo la página de inicio de sesión de Instagram
+driver.get('https://www.instagram.com/accounts/login/')
+sleep(5)
 
-from time import sleep #time library for sleepcommand
-
-from random import randint #library to provide random integer values between range
-
-from selenium import webdriver #the library for accesing chrome by our code
-
-
-#window to accept inputs username, password, and hashtags
-print("enter username:-")
-user=input()
-passw=input("enter password:-")
-print("enter hashtags seperated by , :-")
-hash=input()
-
-
-# Change this to your own chromedriver path!
-chromedriver_path = 'C:/Users/Vinay/Downloads/chromedriver_win32/chromedriver.exe' 
-webdriver = wb.Chrome(executable_path=chromedriver_path)
-
-sleep(2)
-#opening instagram login page.
-webdriver.get('https://www.instagram.com/accounts/login/?source=auth_switcher')
-
-sleep(3)
-
-
-
-username = webdriver.find_element_by_name('username')#finding username inputbox
-
-username.send_keys(user)#passing username.
-
-password = webdriver.find_element_by_name('password')
+# Ingresar nombre de usuario y contraseña
+username = driver.find_element(By.NAME, 'username')
+username.send_keys(user)
+password = driver.find_element(By.NAME, 'password')
 password.send_keys(passw)
 
-
-#finding login button 
-button_login = webdriver.find_element_by_css_selector('#react-root > section > main > div > article > div > div:nth-child(1) > div > form > div:nth-child() > button')
-#clicking on button 
+# Encontrar y hacer clic en el botón de inicio de sesión
+button_login = driver.find_element(By.CSS_SELECTOR, 'button[type="submit"]')
 button_login.click()
+sleep(5)
 
-sleep(3)
+# Hacer clic en el botón "Not Now" para desactivar las notificaciones
+not_now_buttons = driver.find_elements(By.XPATH, '//button[contains(text(), "Not Now")]')
+for button in not_now_buttons:
+    try:
+        button.click()
+        sleep(2)
+    except:
+        continue
 
-
-#clicking on not now button which occurs when we logged in
-notnow = webdriver.find_element_by_css_selector('body > div.RnEpo.Yx5HN > div > div > div.mt3GC > button.aOOlW.HoLwm')
-
-notnow.click()
-
-
-
-hashtag_list1=hash.split(",")
-for hashtag in hashtag_list1:
-
-    sleep(5)
-    webdriver.get('https://www.instagram.com/explore/tags/' + hashtag + '/')
-
+# Procesar hashtags
+hashtag_list = hash.split(',')
+for hashtag in hashtag_list:
+    driver.get(f'https://www.instagram.com/explore/tags/{hashtag}/')
     sleep(5)
 
-    first_thumbnail = webdriver.find_element_by_xpath('//*[@id="react-root"]/section/main/article/div[1]/div/div/div[1]/div[1]/a/div/div[2]')
+    # Hacer clic en la primera miniatura
+    first_thumbnail = driver.find_element(By.XPATH, '//div[contains(@class, "_9AhH0")]')
     first_thumbnail.click()
+    sleep(3)
 
-    sleep(randint(1, 2))
+    for _ in range(1, 200):
+        sleep(randint(3, 7))
+        
+        # Intentar encontrar y hacer clic en el botón de "Me gusta"
+        try:
+            like_button = driver.find_element(By.XPATH, '//span[@aria-label="Like"]')
+            like_button.click()
+        except Exception as e:
+            print(f"Error al dar 'Me gusta': {e}")
+            continue
 
+        sleep(randint(3, 7))
 
-
-    for x in range(1, 200):
-
-            #username = webdriver.find_element_by_xpath('/html/body/div[4]/div[2]/div/article/header/div[2]/div[1]/div[1]/h2/a').text
-            #if username not in prev_user_list:
-            # If we already follow, do not unfollow
-
-            #if webdriver.find_element_by_xpath('/html/body/div[4]/div[2]/div/article/header/div[2]/div[1]/div[2]/button').text == 'Follow':
-
-            #webdriver.find_element_by_xpath('/html/body/div[4]/div[2]/div/article/header/div[2]/div[1]/div[2]/button').click()
-
-            #new_followed.append(username)
-
-            #followed += 1
-
-            # Liking the picture
-        sleep(randint(3,7))
-        #finding the like button using xpath
-        button_like = webdriver.find_element_by_xpath('/html/body/div[4]/div[2]/div/article/div[2]/section[1]/span[1]/button/span')
-
-        button_like.click()#cliking on founded like button to like photo 
-
-        comm_prob =randint(1,4)
-        #to enable commenting box
-        webdriver.find_element_by_xpath('/html/body/div[]/div[2]/div/article/div[2]/section[3]/div/form/textarea').click()
-        #clicking on comment box
-        comment_box = webdriver.find_element_by_xpath('/html/body/div[]/div[2]/div/article/div[2]/section[3]/div/form/textarea')
-        sleep(randint(3,7))
-        #code to post random comments
-        if comm_prob == 1:   
-            #this statement will send the comment to the comment box
-            comment_box.send_keys('Really cool!')
-            sleep(5)
-
+        # Probabilidad de comentar
+        comm_prob = randint(1, 4)
+        if comm_prob == 1:
+            comment_text = "Really cool!"
         elif comm_prob == 2:
-
-            comment_box.send_keys('Nice work :)')
-
-            sleep(5)
-
+            comment_text = "Nice work :)"
         elif comm_prob == 3:
+            comment_text = "Nice gallery!!"
+        else:
+            comment_text = "So cool! :)"
 
-            comment_box.send_keys('Nice gallery!!')
+        # Intentar encontrar y hacer clic en el cuadro de comentarios
+        try:
+            comment_box = driver.find_element(By.XPATH, '//textarea[@aria-label="Add a comment…"]')
+            comment_box.click()
+            comment_box.send_keys(comment_text)
+            sleep(2)
+            comment_box.send_keys(Keys.ENTER)
+        except Exception as e:
+            print(f"Error al comentar: {e}")
+            continue
 
-            sleep(5)
-
-        elif comm_prob == 4:
-
-            comment_box.send_keys('So cool! :)')
-
-            sleep(5)
-
-                
-        sleep(randint(4,6))
-        comment_box.send_keys(Keys.ENTER)# Enter to post comment
         sleep(randint(22, 28))
 
-        webdriver.find_element_by_link_text('Next').click()#clicking on next for next photo
+        # Intentar encontrar y hacer clic en el botón "Next"
+        try:
+            next_button = driver.find_element(By.LINK_TEXT, 'Next')
+            next_button.click()
+            sleep(randint(25, 29))
+        except Exception as e:
+            print(f"Error al ir a la siguiente foto: {e}")
+            break
 
-        sleep(randint(25, 29))
-
-###Developed by vinay patil
-
-
-
+# Cerrar el navegador
+driver.quit()
