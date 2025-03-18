@@ -30,7 +30,7 @@ chrome_options.add_argument("--disable-infobars")
 chrome_options.add_argument("--mute-audio")
 
 # Ruta del chromedriver
-chromedriver_path = 'C:/Users/Vinay/Downloads/chromedriver_win32/chromedriver.exe'
+chromedriver_path = 'C:/Users/roxan/Downloads/chromedriver_win_32/chromedriver.exe'
 service = Service(executable_path=chromedriver_path)
 driver = webdriver.Chrome(service=service, options=chrome_options)
 

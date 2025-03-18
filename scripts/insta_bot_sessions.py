@@ -5,7 +5,8 @@ from time import sleep
 from random import randint
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-import random
+import yaml
+import os
 
 # Configuración de opciones para Chrome
 chrome_options = Options()
@@ -14,7 +15,7 @@ chrome_options.add_argument("--disable-infobars")
 chrome_options.add_argument("--mute-audio")
 
 # Ruta del chromedriver
-chromedriver_path = 'C:/Users/Vinay/Downloads/chromedriver_win32/chromedriver.exe'
+chromedriver_path = 'C:/Users/roxan/Downloads/chromedriver_win_32/chromedriver.exe'
 service = Service(executable_path=chromedriver_path)
 driver = webdriver.Chrome(service=service, options=chrome_options)
 
